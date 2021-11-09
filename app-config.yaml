@@ -1,5 +1,5 @@
 app:
-  title: Project Kerberus App
+  title: Krateo App
   baseUrl: http://localhost:3000
   listen:
     host: 0.0.0.0
@@ -82,7 +82,7 @@ catalog:
     - allow: [Component, System, API, Group, User, Resource, Location]
   locations:
     - type: url
-      target: https://github.com/projectkerberus/gcp-stack-template/blob/main/template-beta.yaml
+      target: https://github.com/krateoplatformops/gcp-stack-template/blob/main/template-beta.yaml
       rules:
         - allow: [Template]
 
