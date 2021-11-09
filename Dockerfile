@@ -5,7 +5,7 @@ COPY . ./
 COPY nginx.conf /etc/nginx/conf.d/configfile.template
 
 RUN apk add --no-cache nodejs yarn && yarn
-COPY node_modules/@backstage/plugin-search ./node_modules/@backstage/plugin-search
+# COPY node_modules/@backstage/plugin-search ./node_modules/@backstage/plugin-search
 
 ENV PORT 8080
 EXPOSE 8080

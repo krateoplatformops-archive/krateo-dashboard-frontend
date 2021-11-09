@@ -1,4 +1,4 @@
-# Kerberus Dashboard Frontend
+# Krateo Dashboard Frontend
 
 ### List of customizations
 
