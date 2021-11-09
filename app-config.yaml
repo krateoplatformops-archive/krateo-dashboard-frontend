@@ -1,0 +1,123 @@
+app:
+  title: Project Kerberus App
+  baseUrl: http://localhost:3000
+  listen:
+    host: 0.0.0.0
+
+organization:
+  name: Kiratech
+
+backend:
+  baseUrl: http://localhost:7000
+  listen:
+    port: 7000
+  csp:
+    connect-src: ["'self'", "http:", "https:"]
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, POST, PUT, DELETE]
+    credentials: true
+  # config options: https://node-postgres.com/api/client
+  database:
+    client: pg
+    connection:
+      host: ${POSTGRES_HOST}
+      port: ${POSTGRES_PORT}
+      user: ${POSTGRES_USER}
+      password: ${POSTGRES_PASSWORD}
+      # https://node-postgres.com/features/ssl
+      #ssl: require # see https://www.postgresql.org/docs/current/libpq-ssl.html Table 33.1. SSL Mode Descriptions (e.g. require)
+      #ca: # if you have a CA file and want to verify it you can uncomment this section
+      #  $file: <file-path>/ca/server.crt
+  cache:
+    store: memory
+  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+
+integrations:
+  github:
+    - host: github.com
+      token: ${GITHUB_TOKEN}
+    ### Example for how to add your GitHub Enterprise instance using the API:
+    # - host: ghe.example.net
+    #   apiBaseUrl: https://ghe.example.net/api/v3
+    #   token: ${GHE_TOKEN}
+
+proxy:
+  "/test":
+    target: "https://example.com"
+    changeOrigin: true
+
+grafana:
+  domain: https://grafana.krateo.io
+
+# Reference documentation http://backstage.io/docs/features/techdocs/configuration
+# Note: After experimenting with basic setup, use CI/CD to generate docs
+# and an external cloud storage when deploying TechDocs for production use-case.
+# https://backstage.io/docs/features/techdocs/how-to-guides#how-to-migrate-from-techdocs-basic-to-recommended-deployment-approach
+techdocs:
+  builder: "local" # Alternatives - 'external'
+  generator:
+    runIn: "docker" # Alternatives - 'local'
+  publisher:
+    type: "local" # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+
+auth:
+  providers:
+    guest:
+      enabled: "true"
+    github:
+      development:
+        clientId: cc2d30774e863e086d88
+        clientSecret: 3b6e1f00dbb7a711947bf269435505a5d02b3fa3
+
+scaffolder:
+  github:
+    token: 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
+    visibility: public # or 'internal' or 'private'
+
+catalog:
+  rules:
+    - allow: [Component, System, API, Group, User, Resource, Location]
+  locations:
+    - type: url
+      target: https://github.com/projectkerberus/gcp-stack-template/blob/main/template-beta.yaml
+      rules:
+        - allow: [Template]
+
+costInsights:
+  engineerCost: 900000
+  products:
+    events:
+      name: Events
+      icon: data
+    # computeEngine:
+    #   name: Compute Engine
+    #   icon: compute
+    # cloudDataflow:
+    #   name: Cloud Dataflow
+    #   icon: data
+    # cloudStorage:
+    #   name: Cloud Storage
+    #   icon: storage
+    # bigQuery:
+    #   name: BigQuery
+    #   icon: search
+  metrics:
+    DAU:
+      name: Daily Active Users
+      default: true
+    MSC:
+      name: Monthly Subscribers
+  # currencies:
+  #   metricA:
+  #     currencyA:
+  #       label: Currency A
+  #       unit: Unit A
+  #     currencyB:
+  #       label: Currency B
+  #       kind: CURRENCY_B
+  #       unit: Unit B
+  #       prefix: B
+  #       rate: 3.5
