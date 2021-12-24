@@ -1,5 +1,6 @@
+#!/usr/bin/env node
 /*
- * Copyright 2020 The Backstage Authors
+ * Copyright 2021 The Backstage Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +15,11 @@
  * limitations under the License.
  */
 
-// jest-dom adds custom jest matchers for asserting on DOM nodes.
-// allows you to do things like:
-// expect(element).toHaveTextContent(/react/i)
-// learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom';
+const { execSync } = require('child_process');
+
+const args = process.argv.slice(2);
+
+execSync(`yarn -s workspace @techdocs/cli build`, { stdio: 'inherit' });
+execSync(`yarn workspace @techdocs/cli link`, { stdio: 'ignore' });
+execSync(`techdocs-cli ${args.join(' ')}`, { stdio: 'inherit' });
+execSync(`yarn workspace @techdocs/cli unlink`, { stdio: 'ignore' });
