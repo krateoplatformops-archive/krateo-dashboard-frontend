@@ -38,6 +38,7 @@
     "@backstage/plugin-rollbar": "^0.3.20",
     "@backstage/plugin-scaffolder": "^0.11.14",
     "@backstage/plugin-search": "^0.5.1",
+    "@backstage/plugin-sonarqube": "^0.2.6",
     "@backstage/plugin-sentry": "^0.3.30",
     "@backstage/plugin-shortcuts": "^0.1.15",
     "@backstage/plugin-tech-radar": "^0.4.13",
