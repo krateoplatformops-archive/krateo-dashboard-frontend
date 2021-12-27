@@ -125,6 +125,20 @@ import {
   isTravisciAvailable,
 } from '@roadiehq/backstage-plugin-travis-ci';
 import React, { ReactNode, useMemo, useState } from 'react';
+import {
+  EntityArgoCDOverviewCard,
+  isArgocdAvailable,
+} from '@roadiehq/backstage-plugin-argo-cd';
+import { EntitySonarQubeCard } from '@backstage/plugin-sonarqube';
+import {
+  EntityGrafanaDashboardsCard,
+  EntityGrafanaAlertsCard,
+} from '@k-phoen/backstage-plugin-grafana';
+import { EntityPrometheusContent } from '@roadiehq/backstage-plugin-prometheus';
+import {
+  EntityPrometheusAlertCard,
+  EntityPrometheusGraphCard,
+} from '@roadiehq/backstage-plugin-prometheus';
 
 const customEntityFilterKind = ['Component', 'API', 'System'];
 
@@ -297,6 +311,25 @@ const overviewContent = (
 
     {cicdCard}
 
+    <Grid item md={6}>
+      <EntitySonarQubeCard variant="gridItem" />
+    </Grid>
+
+    <Grid item md={6}>
+      <EntityGrafanaDashboardsCard />
+    </Grid>
+    <Grid item md={6}>
+      <EntityGrafanaAlertsCard />
+    </Grid>
+
+    <EntitySwitch>
+      <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
+        <Grid item md={12}>
+          <EntityArgoCDOverviewCard />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
+
     <EntitySwitch>
       <EntitySwitch.Case if={e => Boolean(isGithubInsightsAvailable(e))}>
         <Grid item md={6}>
@@ -324,6 +357,13 @@ const overviewContent = (
         </Grid>
       </EntitySwitch.Case>
     </EntitySwitch>
+
+    <Grid item md={8}>
+      <EntityPrometheusAlertCard />
+    </Grid>
+    <Grid item md={6}>
+      <EntityPrometheusGraphCard />
+    </Grid>
 
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
@@ -387,8 +427,12 @@ const serviceEntityPage = (
       <EntityCodeCoverageContent />
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/kafka" title="Kafka">
+    {/* <EntityLayout.Route path="/kafka" title="Kafka">
       <EntityKafkaContent />
+    </EntityLayout.Route> */}
+
+    <EntityLayout.Route path="/prometheus" title="Prometheus">
+      <EntityPrometheusContent />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/todos" title="TODOs">
