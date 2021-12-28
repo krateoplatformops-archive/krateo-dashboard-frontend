@@ -305,7 +305,7 @@ const overviewContent = (
       </EntitySwitch.Case>
     </EntitySwitch>
 
-    <Grid item md={4} xs={12}>
+    <Grid item md={12} xs={12}>
       <EntityLinksCard />
     </Grid>
 
@@ -332,11 +332,11 @@ const overviewContent = (
 
     <EntitySwitch>
       <EntitySwitch.Case if={e => Boolean(isGithubInsightsAvailable(e))}>
-        <Grid item md={6}>
+        <Grid item md={4}>
           <EntityGithubInsightsLanguagesCard />
           <EntityGithubInsightsReleasesCard />
         </Grid>
-        <Grid item md={6}>
+        <Grid item md={4}>
           <EntityGithubInsightsReadmeCard maxHeight={350} />
         </Grid>
       </EntitySwitch.Case>
@@ -358,14 +358,14 @@ const overviewContent = (
       </EntitySwitch.Case>
     </EntitySwitch>
 
-    <Grid item md={8}>
+    <Grid item md={4}>
       <EntityPrometheusAlertCard />
     </Grid>
-    <Grid item md={6}>
+    <Grid item md={4}>
       <EntityPrometheusGraphCard />
     </Grid>
 
-    <Grid item md={8} xs={12}>
+    <Grid item md={12} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
   </Grid>
@@ -379,10 +379,6 @@ const serviceEntityPage = (
 
     <EntityLayout.Route path="/ci-cd" title="CI/CD">
       {cicdContent}
-    </EntityLayout.Route>
-
-    <EntityLayout.Route path="/errors" title="Errors">
-      {errorsContent}
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/api" title="API">
@@ -415,12 +411,16 @@ const serviceEntityPage = (
       <EntityKubernetesContent />
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/pull-requests" title="Pull Requests">
-      {pullRequestsContent}
-    </EntityLayout.Route>
-
     <EntityLayout.Route path="/code-insights" title="Code Insights">
       <EntityGithubInsightsContent />
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/prometheus" title="Prometheus">
+      <EntityPrometheusContent />
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/pull-requests" title="Pull Requests">
+      {pullRequestsContent}
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/code-coverage" title="Code Coverage">
@@ -431,12 +431,12 @@ const serviceEntityPage = (
       <EntityKafkaContent />
     </EntityLayout.Route> */}
 
-    <EntityLayout.Route path="/prometheus" title="Prometheus">
-      <EntityPrometheusContent />
-    </EntityLayout.Route>
-
     <EntityLayout.Route path="/todos" title="TODOs">
       <EntityTodoContent />
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/errors" title="Errors">
+      {errorsContent}
     </EntityLayout.Route>
   </EntityLayoutWrapper>
 );
