@@ -344,7 +344,7 @@ const overviewContent = (
 
     <EntitySwitch>
       <EntitySwitch.Case if={isLighthouseAvailable}>
-        <Grid item sm={4}>
+        <Grid item sm={6}>
           <EntityLastLighthouseAuditCard variant="gridItem" />
         </Grid>
       </EntitySwitch.Case>
@@ -352,7 +352,7 @@ const overviewContent = (
 
     <EntitySwitch>
       <EntitySwitch.Case if={e => Boolean(isGithubPullRequestsAvailable(e))}>
-        <Grid item sm={4}>
+        <Grid item sm={6}>
           <EntityGithubPullRequestsOverviewCard />
         </Grid>
       </EntitySwitch.Case>
