@@ -139,6 +139,13 @@ import {
   EntityPrometheusAlertCard,
   EntityPrometheusGraphCard,
 } from '@roadiehq/backstage-plugin-prometheus';
+import {
+  EntityKeptnProjectCard,
+  EntityKeptnServiceCard,
+  isKeptnProjectAvailable,
+  isKeptnServiceAvailable,
+  EntityKeptnContent,
+} from '../../plugins/keptn/src/index';
 
 const customEntityFilterKind = ['Component', 'API', 'System'];
 
@@ -297,19 +304,19 @@ const overviewContent = (
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
 
-    <EntitySwitch>
+    {/* <EntitySwitch>
       <EntitySwitch.Case if={isPagerDutyAvailable}>
         <Grid item md={6}>
           <EntityPagerDutyCard />
         </Grid>
       </EntitySwitch.Case>
-    </EntitySwitch>
+    </EntitySwitch> */}
 
     <Grid item md={12} xs={12}>
       <EntityLinksCard />
     </Grid>
 
-    {cicdCard}
+    {/* {cicdCard} */}
 
     <Grid item md={6}>
       <EntitySonarQubeCard variant="gridItem" />
@@ -332,42 +339,50 @@ const overviewContent = (
 
     <EntitySwitch>
       <EntitySwitch.Case if={e => Boolean(isGithubInsightsAvailable(e))}>
-        <Grid item md={4}>
+        <Grid item md={6}>
           <EntityGithubInsightsLanguagesCard />
           <EntityGithubInsightsReleasesCard />
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={6}>
           <EntityGithubInsightsReadmeCard maxHeight={350} />
         </Grid>
       </EntitySwitch.Case>
     </EntitySwitch>
 
-    <EntitySwitch>
+    {/* <EntitySwitch>
       <EntitySwitch.Case if={isLighthouseAvailable}>
         <Grid item sm={6}>
           <EntityLastLighthouseAuditCard variant="gridItem" />
         </Grid>
       </EntitySwitch.Case>
-    </EntitySwitch>
+    </EntitySwitch> */}
 
-    <EntitySwitch>
+    {/* <EntitySwitch>
       <EntitySwitch.Case if={e => Boolean(isGithubPullRequestsAvailable(e))}>
         <Grid item sm={6}>
           <EntityGithubPullRequestsOverviewCard />
         </Grid>
       </EntitySwitch.Case>
-    </EntitySwitch>
+    </EntitySwitch> */}
 
-    <Grid item md={4}>
+    <Grid item md={6}>
       <EntityPrometheusAlertCard />
     </Grid>
-    <Grid item md={4}>
+    <Grid item md={6}>
       <EntityPrometheusGraphCard />
     </Grid>
 
-    <Grid item md={12} xs={12}>
+    <Grid item md={6} xs={6}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
+
+    <EntitySwitch>
+      <EntitySwitch.Case if={isKeptnServiceAvailable}>
+        <Grid item md={6} xs={6}>
+          <EntityKeptnServiceCard />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
   </Grid>
 );
 
@@ -423,20 +438,24 @@ const serviceEntityPage = (
       {pullRequestsContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/code-coverage" title="Code Coverage">
+    {/* <EntityLayout.Route path="/code-coverage" title="Code Coverage">
       <EntityCodeCoverageContent />
-    </EntityLayout.Route>
+    </EntityLayout.Route> */}
 
     {/* <EntityLayout.Route path="/kafka" title="Kafka">
       <EntityKafkaContent />
     </EntityLayout.Route> */}
 
-    <EntityLayout.Route path="/todos" title="TODOs">
+    {/* <EntityLayout.Route path="/todos" title="TODOs">
       <EntityTodoContent />
-    </EntityLayout.Route>
+    </EntityLayout.Route> */}
 
-    <EntityLayout.Route path="/errors" title="Errors">
+    {/* <EntityLayout.Route path="/errors" title="Errors">
       {errorsContent}
+    </EntityLayout.Route> */}
+
+    <EntityLayout.Route path="/keptn" title="Keptn">
+      <EntityKeptnContent />
     </EntityLayout.Route>
   </EntityLayoutWrapper>
 );
@@ -621,6 +640,14 @@ const systemPage = (
         <Grid item md={6}>
           <EntityHasResourcesCard variant="gridItem" />
         </Grid>
+
+        <EntitySwitch>
+          <EntitySwitch.Case if={isKeptnProjectAvailable}>
+            <Grid item md={12}>
+              <EntityKeptnProjectCard />
+            </Grid>
+          </EntitySwitch.Case>
+        </EntitySwitch>
       </Grid>
     </EntityLayout.Route>
     <EntityLayout.Route path="/diagram" title="Diagram">
