@@ -94,9 +94,9 @@ export const Content = () => {
       source: 'api',
       contenttype: 'application/json',
       data: {
-        project: 'krateo',
+        project: projectTitle,
         stage: obj.stage,
-        service: 'demo',
+        service: serviceName,
         configurationChange: {
           values: {
             image: obj.image,
