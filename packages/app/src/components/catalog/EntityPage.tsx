@@ -139,13 +139,20 @@ import {
   EntityPrometheusAlertCard,
   EntityPrometheusGraphCard,
 } from '@roadiehq/backstage-plugin-prometheus';
+// import {
+//   EntityKeptnProjectCard,
+//   EntityKeptnServiceCard,
+//   isKeptnProjectAvailable,
+//   isKeptnServiceAvailable,
+//   EntityKeptnContent,
+// } from '../../plugins/keptn/src/index';
 import {
   EntityKeptnProjectCard,
   EntityKeptnServiceCard,
   isKeptnProjectAvailable,
   isKeptnServiceAvailable,
   EntityKeptnContent,
-} from '../../plugins/keptn/src/index';
+} from '@krateo/backstage-plugin-keptn';
 
 const customEntityFilterKind = ['Component', 'API', 'System'];
 
