@@ -1,20 +1,23 @@
-FROM nginx:alpine
+FROM bitnami/nginx
 
-WORKDIR /app
+USER 0
+WORKDIR /app_src
 COPY . ./
-COPY nginx.conf /etc/nginx/conf.d/configfile.template
 
-ENV PORT 8080
-EXPOSE 8080
+RUN mv /app_src/docker-entrypoint.sh /app/docker-entrypoint.sh
+# RUN install_packages yarn && yarn
 
-CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf"
-
-RUN apk add --no-cache nodejs yarn git util-linux && yarn
-
-RUN chown 1001:1001 -R /app
-RUN chown 1001:1001 -R /var/cache/nginx
-RUN adduser -D -u 1001 -g 1001 -s /bin/sh -G 1001 nginx
-USER 1001
+RUN apt-get update
+RUN apt-get install -y apt-utils
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -y nodejs
+RUN apt remove cmdtest
+RUN apt remove yarn
+RUN npm install -g yarn
+RUN yarn
 
 RUN ["chmod", "+x", "/app/docker-entrypoint.sh"]
-ENTRYPOINT [ "/app/docker-entrypoint.sh" ]
+USER 1001
+
+ENTRYPOINT ["/opt/bitnami/scripts/nginx/entrypoint.sh"]
+CMD ["/app/docker-entrypoint.sh && /opt/bitnami/scripts/nginx/run.sh"]
