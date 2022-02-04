@@ -18,6 +18,8 @@ RUN yarn config set network-timeout 300000 && yarn
 
 RUN ["chmod", "+x", "/app/docker-entrypoint.sh"]
 RUN ["chown", "1001", "-R", "/.config"]
+RUN ["chown", "1001", "-R", "/app_src"]
+RUN ["chown", "1001", "-R", "/app"]
 USER 1001
 
 CMD ["/app/docker-entrypoint.sh"]
