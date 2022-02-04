@@ -14,7 +14,7 @@ RUN apt-get install -y nodejs
 RUN apt remove cmdtest
 RUN apt remove yarn
 RUN npm install -g yarn
-RUN yarn
+RUN yarn config set network-timeout 300000 && yarn
 
 RUN ["chmod", "+x", "/app/docker-entrypoint.sh"]
 USER 1001
