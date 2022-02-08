@@ -9,6 +9,7 @@ EXPOSE 8080
 RUN apk add --no-cache nodejs yarn git && yarn
 
 RUN mkdir /app/packages/app/dist && chmod -c 777 /app/packages/app/dist
+RUN chmod -c 777 /var/cache/nginx/client_temp
 
 RUN ["chmod", "+x", "/app/docker-entrypoint.sh"]
 ENTRYPOINT [ "/app/docker-entrypoint.sh" ]
